@@ -48,7 +48,7 @@ This project showcases a user registration system with authentication and author
 
 1. Start the development server:
    ```bash
-   ng serve
+   npm run dev
    ```
 2. Open your browser and navigate to `http://localhost:4200`.
 

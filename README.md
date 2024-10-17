@@ -33,7 +33,7 @@ This project showcases a user registration system with authentication and author
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/Angular-18-User-Registration-with-Asp.Net-Core-Web-API---FE.git
+   git clone https://github.com/e19465/Angular-18-User-Registration-with-Asp.Net-Core-Web-API---FE.git
    ```
 2. Navigate to the project directory:
    ```bash

@@ -1,1 +1,56 @@
-<p>registration works!</p>
+<app-auth-layout [imageSrc]="imageSrc" [title]="title">
+  <form
+    class="flex flex-col gap-4 w-full"
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+  >
+    <input
+      type="text"
+      required
+      formControlName="name"
+      name="register-name-name"
+      id="register-name-id"
+      placeholder="Name"
+      class="text-sm sm:text-base p-2 border border-blue-900 rounded-md w-full focus:ring-2 focus:ring-blue-500"
+    />
+    <input
+      type="email"
+      required
+      name="register-email-name"
+      id="register-email-id"
+      formControlName="email"
+      placeholder="john@gmail.com"
+      class="text-sm sm:text-base p-2 border border-blue-900 rounded-md focus:ring-2 focus:ring-blue-500"
+    />
+    <input
+      type="password"
+      required
+      name="register-password-name"
+      id="register-password-id"
+      formControlName="password"
+      placeholder="Password"
+      class="text-sm sm:text-base p-2 border border-blue-900 rounded-md focus:ring-2 focus:ring-blue-500"
+    />
+    <input
+      type="password"
+      required
+      name="register-confirm-password-name"
+      id="register-confirm-password-id"
+      formControlName="confirmPassword"
+      placeholder="Confirm Password"
+      class="text-sm sm:text-base p-2 border border-blue-900 rounded-md focus:ring-2 focus:ring-blue-500"
+    />
+    <button
+      type="submit"
+      class="bg-blue-900 text-white p-2 rounded-md transition-colors duration-300 hover:bg-blue-800"
+    >
+      Register
+    </button>
+    <div class="w-full flex items-center justify-center gap-2">
+      <span class="text-blue-900">Already have an account?</span>
+      <a [routerLink]="['/', 'sign-in']" class="text-blue-500 underline"
+        >Sign in
+      </a>
+    </div>
+  </form>
+</app-auth-layout>

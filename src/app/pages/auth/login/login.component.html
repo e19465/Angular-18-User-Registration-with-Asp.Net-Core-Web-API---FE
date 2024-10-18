@@ -1,1 +1,38 @@
-<p>login works!</p>
+<app-auth-layout [imageSrc]="imageSrc" [title]="title">
+  <form
+    class="flex flex-col gap-4 w-full"
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+  >
+    <input
+      type="email"
+      required
+      name="login-email-name"
+      id="login-email-id"
+      formControlName="email"
+      placeholder="john@gmail.com"
+      class="text-sm sm:text-base p-2 border border-blue-900 rounded-md focus:ring-2 focus:ring-blue-500"
+    />
+    <input
+      type="password"
+      required
+      name="login-password-name"
+      id="login-password-id"
+      formControlName="password"
+      placeholder="password"
+      class="text-sm sm:text-base p-2 border border-blue-900 rounded-md focus:ring-2 focus:ring-blue-500"
+    />
+    <button
+      type="submit"
+      class="bg-blue-900 text-white p-2 rounded-md transition-colors duration-300 hover:bg-blue-800"
+    >
+      Login
+    </button>
+    <div class="w-full flex items-center justify-center gap-2">
+      <span class="text-blue-900">Don't have an account?</span>
+      <a [routerLink]="['/', 'sign-up']" class="text-blue-500 underline"
+        >Sign up
+      </a>
+    </div>
+  </form>
+</app-auth-layout>

@@ -5,6 +5,7 @@ import {
   Validators,
   ReactiveFormsModule,
   ValidationErrors,
+  ValidatorFn,
 } from '@angular/forms';
 import { AbstractControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -95,15 +96,15 @@ export class RegistrationComponent {
   }
 
   // Password match validator
-  private passwordMatchValidator(
+  private passwordMatchValidator: ValidatorFn = (
     control: AbstractControl
-  ): { [key: string]: any } | null {
+  ): { [key: string]: any } | null => {
     const password = control.get('password')?.value;
     const confirmPassword = control.get('confirmPassword')?.value;
     return password && confirmPassword && password !== confirmPassword
       ? { mismatch: true }
       : null;
-  }
+  };
 
   onSubmit() {
     if (this.form.valid) {

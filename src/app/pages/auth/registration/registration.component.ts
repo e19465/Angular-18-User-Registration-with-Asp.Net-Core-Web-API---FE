@@ -7,8 +7,8 @@ import {
 } from '@angular/forms';
 import { AbstractControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { AuthLayoutComponent } from '../../../components/auth/auth-layout/auth-layout.component';
 import { RouterLink } from '@angular/router';
+import { AuthLayoutComponent } from '../../../layouts/auth/auth-layout/auth-layout.component';
 
 @Component({
   selector: 'app-registration',

@@ -4,6 +4,8 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { jWTInterceptor } from './interceptors/jwt.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,5 +22,7 @@ export const appConfig: ApplicationConfig = {
       easeTime: 300, // Animation ease time
       enableHtml: true, // Enable HTML content in toast
     }),
+    provideHttpClient(),
+    // provideHttpClient(withInterceptors([jWTInterceptor])), // use interceptor when JWT authentication is ready
   ],
 };

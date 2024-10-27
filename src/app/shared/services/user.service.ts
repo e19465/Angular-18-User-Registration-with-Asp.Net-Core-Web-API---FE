@@ -18,7 +18,7 @@ export class UserService {
   }
 
   saveCredentialsToLocalStorage(data: any) {
-    localStorage.setItem('accesToken', data.accesToken);
-    localStorage.setItem('refreshToken', data.refreshToken);
+    localStorage.setItem('accessToken', data.accessToken);
+    // localStorage.setItem('refreshToken', data.refreshToken);
   }
 }

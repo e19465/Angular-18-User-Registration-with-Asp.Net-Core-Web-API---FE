@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -18,7 +18,7 @@ import { UserService } from '../../../shared/services/user.service';
   imports: [ReactiveFormsModule, AuthLayoutComponent, RouterLink],
   templateUrl: './login.component.html',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   form: FormGroup;
   title = 'Sign In';
   imageSrc = '/images/loginpc.png';
@@ -38,6 +38,12 @@ export class LoginComponent {
       ]),
       password: this.formBuilder.control('', [Validators.required]),
     });
+  }
+
+  ngOnInit(): void {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigateByUrl('/');
+    }
   }
 
   onSubmit() {

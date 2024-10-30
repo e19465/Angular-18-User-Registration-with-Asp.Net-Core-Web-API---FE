@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -21,7 +21,7 @@ import { AuthService } from '../../../shared/services/auth.service';
   templateUrl: './registration.component.html',
   styleUrls: [],
 })
-export class RegistrationComponent {
+export class RegistrationComponent implements OnInit {
   form: FormGroup;
   title = 'Sign Up';
   imageSrc = '/images/loginbgsec.png';
@@ -58,6 +58,12 @@ export class RegistrationComponent {
       },
       { validators: this.passwordMatchValidator }
     );
+  }
+
+  ngOnInit(): void {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigateByUrl('/');
+    }
   }
 
   // Custom validator for password strength

@@ -22,7 +22,7 @@ export const appConfig: ApplicationConfig = {
       easeTime: 300, // Animation ease time
       enableHtml: true, // Enable HTML content in toast
     }),
-    provideHttpClient(),
-    // provideHttpClient(withInterceptors([jWTInterceptor])), // use interceptor when JWT authentication is ready
+    // provideHttpClient(),
+    provideHttpClient(withInterceptors([jWTInterceptor])), // use interceptor when JWT authentication is ready
   ],
 };

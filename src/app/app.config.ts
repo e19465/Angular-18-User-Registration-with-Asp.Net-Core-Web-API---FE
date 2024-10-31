@@ -4,7 +4,11 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptors,
+} from '@angular/common/http';
 import { jWTInterceptor } from './interceptors/jwt.interceptor';
 
 export const appConfig: ApplicationConfig = {
@@ -23,6 +27,6 @@ export const appConfig: ApplicationConfig = {
       enableHtml: true, // Enable HTML content in toast
     }),
     // provideHttpClient(),
-    provideHttpClient(withInterceptors([jWTInterceptor])), // use interceptor when JWT authentication is ready
+    provideHttpClient(withFetch(), withInterceptors([jWTInterceptor])), // use interceptor when JWT authentication is ready
   ],
 };

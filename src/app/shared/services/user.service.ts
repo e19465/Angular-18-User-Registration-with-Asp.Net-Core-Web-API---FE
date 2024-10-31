@@ -1,22 +1,28 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { LocalStorageKeys } from '../constants/constants';
 import { environment } from '../../../environments/environment';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor() {}
+  constructor(
+    private httpClient: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
   private baseURL = environment.apiBaseUrl;
-  private httpClient = inject(HttpClient);
 
-  getAccessTokenFromLocalStorage() {
-    return localStorage.getItem(LocalStorageKeys.accessToken) || '';
+  getAccessTokenFromLocalStorage(): string | null {
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage.getItem(LocalStorageKeys.accessToken);
+    }
+    return null;
   }
 
   getRefreshTokenFromLocalStorage() {
-    return localStorage.getItem(LocalStorageKeys.refreshToken) || '';
+    return localStorage.getItem(LocalStorageKeys.refreshToken);
   }
 
   saveCredentialsToLocalStorage(data: any) {

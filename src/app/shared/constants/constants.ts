@@ -1,6 +1,6 @@
 export const LocalStorageKeys = {
-  accessToken: 'accessToken',
-  refreshToken: 'refreshtoken',
+  ACCESS_TOKEN: 'accessToken',
+  REFRESH_TOKEN: 'refreshtoken',
 };
 
 export const HTTP_STATUS = {

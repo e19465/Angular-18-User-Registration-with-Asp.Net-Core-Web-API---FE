@@ -16,18 +16,25 @@ export class UserService {
 
   getAccessTokenFromLocalStorage(): string | null {
     if (isPlatformBrowser(this.platformId)) {
-      return localStorage.getItem(LocalStorageKeys.accessToken);
+      return localStorage.getItem(LocalStorageKeys.ACCESS_TOKEN);
     }
     return null;
   }
 
-  getRefreshTokenFromLocalStorage() {
-    return localStorage.getItem(LocalStorageKeys.refreshToken);
+  getRefreshTokenFromLocalStorage(): string | null {
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage.getItem(LocalStorageKeys.REFRESH_TOKEN);
+    }
+    return null;
   }
 
   saveCredentialsToLocalStorage(data: any) {
-    localStorage.setItem(LocalStorageKeys.accessToken, data.accessToken);
-    localStorage.setItem(LocalStorageKeys.refreshToken, data.refreshToken);
+    if (data.accessToken && data.refreshToken) {
+      localStorage.setItem(LocalStorageKeys.ACCESS_TOKEN, data.accessToken);
+      localStorage.setItem(LocalStorageKeys.REFRESH_TOKEN, data.refreshToken);
+    } else {
+      throw new Error('Invalid response from server');
+    }
   }
 
   getUserProfile() {

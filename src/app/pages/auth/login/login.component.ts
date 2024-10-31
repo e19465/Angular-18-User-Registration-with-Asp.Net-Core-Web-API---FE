@@ -57,7 +57,6 @@ export class LoginComponent implements OnInit {
       this.authService.userLogin(submitData).subscribe({
         next: (response: any) => {
           this.loading = false;
-          console.log(response);
           this.userService.saveCredentialsToLocalStorage(response);
           this.form.reset();
           this.toastr.success('Login successful!', '');
@@ -65,7 +64,7 @@ export class LoginComponent implements OnInit {
         },
         error: (err: any) => {
           this.loading = false;
-          console.log(err);
+          console.error(err);
           if (err.error?.message) {
             this.toastr.error(err.error.message, '');
           } else {

@@ -26,7 +26,6 @@ export class AuthService {
   }
 
   refreshTokens() {
-    console.log('Refreshing tokens...');
     return this.httpClient.post(`${this.baseURL}/user/refresh`, {
       RefreshToken: this.userService.getRefreshTokenFromLocalStorage(),
     });

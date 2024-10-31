@@ -23,22 +23,17 @@ export const jWTInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(authRequest).pipe(
     catchError((error: any) => {
-      console.log('Error in JWT interceptor:', error);
       if (error.status === HTTP_STATUS.HTTP_401_UNAUTHORIZED) {
-        console.log('error: ', error);
         if (!isRefreshing && authService.isLoggedIn()) {
           isRefreshing = true;
-          console.log('Token expired, refreshing token...');
           return authService.refreshTokens().pipe(
             switchMap((res: any) => {
               isRefreshing = false;
               if (!res.accessToken || !res.refreshToken) {
                 throw new Error('Invalid response from server');
               }
-              console.log('Token refreshed successfully:', res);
               userService.saveCredentialsToLocalStorage(res);
               const newAccessToken = res.accessToken;
-              console.log('New access token:', newAccessToken);
 
               const newAuthRequest = req.clone({
                 setHeaders: {
@@ -51,7 +46,6 @@ export const jWTInterceptor: HttpInterceptorFn = (req, next) => {
               isRefreshing = false;
               authService.logoutUser();
               toastr.info('Please login again', 'Session Expired');
-              console.log('Error during token refresh:', refreshError);
               return throwError(() => refreshError);
             })
           );

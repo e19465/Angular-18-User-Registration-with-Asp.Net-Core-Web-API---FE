@@ -132,13 +132,12 @@ export class RegistrationComponent implements OnInit {
       this.authService.userRegister(submitData).subscribe({
         next: (response: any) => {
           if (response.succeeded) {
-            console.log(response);
             this.form.reset();
             this.toastr.success('Registration successful!', '');
             this.router.navigate(['/sign-in']);
           } else {
             this.toastr.error('Registration failed', 'Something went wrong');
-            console.log(response);
+            console.error(response);
           }
           this.loading = false;
         },
@@ -165,7 +164,7 @@ export class RegistrationComponent implements OnInit {
             this.toastr.error('Registration failed', 'Something went wrong');
           }
           this.loading = false;
-          console.log(err);
+          console.error(err);
         },
       });
     } else {

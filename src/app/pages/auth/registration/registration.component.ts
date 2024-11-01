@@ -10,7 +10,7 @@ import {
 import { AbstractControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router, RouterLink } from '@angular/router';
-import { AuthLayoutComponent } from '../../../layouts/auth/auth-layout/auth-layout.component';
+import { AuthLayoutComponent } from '../../../layouts/auth-layout/auth-layout.component';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../shared/services/auth.service';
 

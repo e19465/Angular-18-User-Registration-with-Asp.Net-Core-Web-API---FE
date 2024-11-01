@@ -8,7 +8,7 @@ import {
 } from '@angular/forms'; // Import AbstractControl
 import { ToastrService } from 'ngx-toastr';
 import { Router, RouterLink } from '@angular/router';
-import { AuthLayoutComponent } from '../../../layouts/auth/auth-layout/auth-layout.component';
+import { AuthLayoutComponent } from '../../../layouts/auth-layout/auth-layout.component';
 import { AuthService } from '../../../shared/services/auth.service';
 import { UserService } from '../../../shared/services/user.service';
 

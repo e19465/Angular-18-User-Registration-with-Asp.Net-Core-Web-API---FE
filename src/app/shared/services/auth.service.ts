@@ -18,6 +18,11 @@ export class AuthService {
   private baseURL = environment.apiBaseUrl;
 
   userRegister(formData: any) {
+    //? WARNING
+    // Adding default values to the form data
+    formData.Role = 'Teacher';
+    formData.Gender = 'Male';
+    formData.Age = 18;
     return this.httpClient.post(`${this.baseURL}/signup`, formData);
   }
 

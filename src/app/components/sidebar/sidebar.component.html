@@ -1,0 +1,32 @@
+<div class="w-full h-full flex flex-col">
+  <!-- LOGO -->
+  <div class="w-full flex items-center justify-center p-2 h-[50px] shadow-md">
+    <a
+      routerLink="/"
+      class="text-2xl text-mix font-extrabold tracking-[-2px] p-4"
+      >AuthEC</a
+    >
+  </div>
+
+  <!-- Links -->
+  <nav
+    class="w-full flex flex-col justify-start h-[calc(100%-50px)] overflow-auto custom-scrollbar px-2"
+  >
+    <div
+      class="pl-4 py-4 border-b border-b-gray-300"
+      *ngFor="let link of links"
+    >
+      <a
+        [routerLink]="link.path"
+        class="flex gap-2 items-center font-semibold text-blue-900"
+      >
+        <ng-icon
+          [svg]="link.icon"
+          aria-hidden="true"
+          class="text-2xl"
+        ></ng-icon>
+        <span class="text-lg">{{ link.label }}</span>
+      </a>
+    </div>
+  </nav>
+</div>

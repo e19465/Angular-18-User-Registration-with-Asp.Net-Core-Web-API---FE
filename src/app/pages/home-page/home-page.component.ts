@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { UserService } from '../../shared/services/user.service';
 import { AuthService } from '../../shared/services/auth.service';
 import { MainLayoutComponent } from '../../layouts/main-layout/main-layout.component';
@@ -7,7 +7,7 @@ import { MainLayoutComponent } from '../../layouts/main-layout/main-layout.compo
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [MainLayoutComponent],
+  imports: [MainLayoutComponent, RouterOutlet],
   templateUrl: './home-page.component.html',
 })
 export class HomePageComponent implements OnInit {

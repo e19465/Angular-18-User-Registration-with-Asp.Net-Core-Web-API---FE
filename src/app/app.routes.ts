@@ -12,6 +12,9 @@ import { UnderTenFemaleOnlyComponent } from './pages/authorized/under-ten-female
 import { USER_ROLES } from './shared/constants/constants';
 import { ForbiddenComponent } from './pages/forbidden/forbidden.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
+import { claimReqUtils } from './shared/utils/claimReq-utils';
+import { TeacherOnlyComponent } from './pages/authorized/teacher-only/teacher-only.component';
+import { StudentOnlyComponent } from './pages/authorized/student-only/student-only.component';
 
 export const routes: Routes = [
   {
@@ -28,29 +31,50 @@ export const routes: Routes = [
         path: 'admin-only',
         component: AdminOnlyComponent,
         data: {
-          claimReq: (claim: any) => claim.role === USER_ROLES.ADMIN,
+          claimReq: claimReqUtils.adminOnly,
         },
       },
       {
         path: 'admin-and-teacher',
         component: AdminAndTeacherComponent,
         data: {
-          claimReq: (claim: any) =>
-            claim.role === USER_ROLES.ADMIN ||
-            claim.role === USER_ROLES.TEACHER,
+          claimReq: claimReqUtils.adminAndTeacher,
         },
       },
       {
         path: 'apply-for-maternity-leave',
         component: ApplyForMaternityLeaveComponent,
+        data: {
+          claimReq: claimReqUtils.maternityLeaveApplicable,
+        },
       },
       {
         path: 'library-members-only',
         component: LibraryMembersOnlyComponent,
+        data: {
+          claimReq: claimReqUtils.libraryMembersOnly,
+        },
       },
       {
         path: 'under-ten-female-only',
         component: UnderTenFemaleOnlyComponent,
+        data: {
+          claimReq: claimReqUtils.genderFemaleAgeUnderTen,
+        },
+      },
+      {
+        path: 'student-only',
+        component: StudentOnlyComponent,
+        data: {
+          claimReq: claimReqUtils.studentOnly,
+        },
+      },
+      {
+        path: 'teacher-only',
+        component: TeacherOnlyComponent,
+        data: {
+          claimReq: claimReqUtils.teacherOnly,
+        },
       },
     ],
   },

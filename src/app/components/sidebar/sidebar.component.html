@@ -19,6 +19,7 @@
       *ngFor="let link of links"
       routerLinkActive="bg-blue-900 text-gray-50"
       [routerLinkActiveOptions]="{ exact: true }"
+      [appHideIfClaimsNotMet]="link.claimsReq"
     >
       <a
         [routerLink]="link.path"

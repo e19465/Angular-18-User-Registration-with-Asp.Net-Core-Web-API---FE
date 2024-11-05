@@ -18,7 +18,8 @@ export const authGuard: CanActivateFn = (route, state) => {
       if (claims && claimReq(claims)) {
         return true;
       } else {
-        router.navigateByUrl('/forbidden');
+        // router.navigateByUrl('/forbidden'); // If you want to redirect to a forbidden page
+        router.navigateByUrl('/not-found'); // If you want to redirect to a not found page
         return false;
       }
     } else {

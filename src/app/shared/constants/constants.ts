@@ -23,3 +23,8 @@ export const USER_ROLES = {
   TEACHER: 'Teacher',
   STUDENT: 'Student',
 };
+
+export const USER_GENDERS = {
+  MALE: 'Male',
+  FEMALE: 'Female',
+};

@@ -12,22 +12,24 @@
 
   <!-- Links -->
   <nav
-    class="w-full flex flex-col justify-start h-[calc(100%-50px)] overflow-auto custom-scrollbar px-2"
+    class="w-full flex flex-col justify-start h-[calc(100%-50px)] overflow-auto custom-scrollbar px-2 pt-2"
   >
     <div
-      class="pl-4 py-4 border-b border-b-gray-300"
+      class="pl-4 py-4 border-b rounded-md text-blue-900 hover:bg-blue-500 hover:text-gray-50 border-b-gray-300 transition-colors duration-300 ease-in-out"
       *ngFor="let link of links"
+      routerLinkActive="bg-blue-900 text-gray-50"
+      [routerLinkActiveOptions]="{ exact: true }"
     >
       <a
         [routerLink]="link.path"
-        class="flex gap-2 items-center font-semibold text-blue-900"
+        class="flex gap-2 items-center font-semibold w-full"
       >
         <ng-icon
           [svg]="link.icon"
           aria-hidden="true"
           class="text-2xl"
         ></ng-icon>
-        <span class="text-lg">{{ link.label }}</span>
+        <span class="text-sm">{{ link.label }}</span>
       </a>
     </div>
   </nav>

@@ -17,3 +17,9 @@ export const HTTP_STATUS = {
   HTTP_429_TOO_MANY_REQUESTS: 429,
   HTTP_500_INTERNAL_SERVER_ERROR: 500,
 };
+
+export const USER_ROLES = {
+  ADMIN: 'Admin',
+  TEACHER: 'Teacher',
+  STUDENT: 'Student',
+};

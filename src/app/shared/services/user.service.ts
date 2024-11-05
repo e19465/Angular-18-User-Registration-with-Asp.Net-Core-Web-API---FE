@@ -40,4 +40,16 @@ export class UserService {
   getUserProfile() {
     return this.httpClient.get(`${this.baseURL}/user-profile`);
   }
+
+  getUserClaims() {
+    const accessToken = this.getAccessTokenFromLocalStorage();
+    if (accessToken) {
+      const claims = accessToken.split('.')[1];
+      const decodedClaims = atob(claims);
+      console.log('decodedClaims', decodedClaims);
+      return JSON.parse(decodedClaims);
+    } else {
+      return null;
+    }
+  }
 }

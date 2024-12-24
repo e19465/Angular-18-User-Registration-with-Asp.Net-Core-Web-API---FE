@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -9,9 +9,10 @@ import {
 } from '@angular/forms';
 import { AbstractControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { RouterLink } from '@angular/router';
-import { AuthLayoutComponent } from '../../../layouts/auth/auth-layout/auth-layout.component';
+import { Router, RouterLink } from '@angular/router';
+import { AuthLayoutComponent } from '../../../layouts/auth-layout/auth-layout.component';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-registration',
@@ -20,10 +21,11 @@ import { CommonModule } from '@angular/common';
   templateUrl: './registration.component.html',
   styleUrls: [],
 })
-export class RegistrationComponent {
+export class RegistrationComponent implements OnInit {
   form: FormGroup;
   title = 'Sign Up';
   imageSrc = '/images/loginbgsec.png';
+  loading = false;
 
   // List of password requirements
   passwordRequirements = [
@@ -34,7 +36,12 @@ export class RegistrationComponent {
     { id: 'specialChar', text: 'At least one special character', met: false },
   ];
 
-  constructor(private formBuilder: FormBuilder, private toastr: ToastrService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.form = new FormGroup(
       {
         name: this.formBuilder.control('', Validators.required),
@@ -51,6 +58,12 @@ export class RegistrationComponent {
       },
       { validators: this.passwordMatchValidator }
     );
+  }
+
+  ngOnInit(): void {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigateByUrl('/');
+    }
   }
 
   // Custom validator for password strength
@@ -109,8 +122,51 @@ export class RegistrationComponent {
   onSubmit() {
     if (this.form.valid) {
       const formData = this.form.value;
-      console.log('Form Submitted', formData);
-      this.toastr.success('Registration successful!', '');
+      const submitData = {
+        FullName: formData.name.trim(),
+        Email: formData.email,
+        Password: formData.password,
+        ConfirmPassword: formData.confirmPassword,
+      };
+      this.loading = true;
+      this.authService.userRegister(submitData).subscribe({
+        next: (response: any) => {
+          if (response.succeeded) {
+            this.form.reset();
+            this.toastr.success('Registration successful!', '');
+            this.router.navigate(['/sign-in']);
+          } else {
+            this.toastr.error('Registration failed', 'Something went wrong');
+            console.error(response);
+          }
+          this.loading = false;
+        },
+        error: (err: any) => {
+          if (err.error && Array.isArray(err.error)) {
+            let error_message = '';
+            for (const errorItem of err.error) {
+              if (
+                errorItem?.code &&
+                (errorItem.code === 'InvalidUserName' ||
+                  errorItem.code === 'DuplicateUserName')
+              ) {
+                continue;
+              }
+              error_message += errorItem.description + ',';
+            }
+
+            // remove last comma
+            error_message = error_message.slice(0, -1);
+            this.toastr.error(error_message, 'Registration failed');
+          } else if (err?.error && err?.error?.message) {
+            this.toastr.error(err.error.message, 'Registration failed');
+          } else {
+            this.toastr.error('Registration failed', 'Something went wrong');
+          }
+          this.loading = false;
+          console.error(err);
+        },
+      });
     } else {
       this.showValidationErrors();
     }

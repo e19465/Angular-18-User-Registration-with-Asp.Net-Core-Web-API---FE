@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -7,8 +7,10 @@ import {
   Validators,
 } from '@angular/forms'; // Import AbstractControl
 import { ToastrService } from 'ngx-toastr';
-import { RouterLink } from '@angular/router';
-import { AuthLayoutComponent } from '../../../layouts/auth/auth-layout/auth-layout.component';
+import { Router, RouterLink } from '@angular/router';
+import { AuthLayoutComponent } from '../../../layouts/auth-layout/auth-layout.component';
+import { AuthService } from '../../../shared/services/auth.service';
+import { UserService } from '../../../shared/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -16,12 +18,19 @@ import { AuthLayoutComponent } from '../../../layouts/auth/auth-layout/auth-layo
   imports: [ReactiveFormsModule, AuthLayoutComponent, RouterLink],
   templateUrl: './login.component.html',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   form: FormGroup;
   title = 'Sign In';
   imageSrc = '/images/loginpc.png';
+  loading = false;
 
-  constructor(private formBuilder: FormBuilder, private toastr: ToastrService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService,
+    private authService: AuthService,
+    private userService: UserService,
+    private router: Router
+  ) {
     this.form = new FormGroup({
       email: this.formBuilder.control('', [
         Validators.required,
@@ -31,11 +40,38 @@ export class LoginComponent {
     });
   }
 
+  ngOnInit(): void {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigateByUrl('/');
+    }
+  }
+
   onSubmit() {
     if (this.form.valid) {
       const formData = this.form.value;
-      console.log('Form Submitted', formData);
-      this.toastr.success('Login successful!', '');
+      const submitData = {
+        Email: formData.email,
+        Password: formData.password,
+      };
+      this.loading = true;
+      this.authService.userLogin(submitData).subscribe({
+        next: (response: any) => {
+          this.loading = false;
+          this.userService.saveCredentialsToLocalStorage(response);
+          this.form.reset();
+          this.toastr.success('Login successful!', '');
+          this.router.navigate(['/']);
+        },
+        error: (err: any) => {
+          this.loading = false;
+          console.error(err);
+          if (err.error?.message) {
+            this.toastr.error(err.error.message, '');
+          } else {
+            this.toastr.error('Login failed!', '');
+          }
+        },
+      });
     } else {
       this.showValidationErrors();
     }

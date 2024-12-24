@@ -46,9 +46,17 @@
     </ul>
     <button
       type="submit"
-      class="bg-blue-900 text-white p-2 rounded-md transition-colors duration-300 hover:bg-blue-800"
+      [disabled]="loading"
+      [ngClass]="{
+        'bg-blue-900': !loading,
+        'bg-gray-200': loading,
+        'cursor-not-allowed': loading || form.invalid,
+        'cursor-pointer': !loading,
+        'hover:bg-blue-800': !loading,
+      }"
+      class="bg-blue-900 text-white p-2 rounded-md transition-colors duration-300"
     >
-      Register
+      {{ loading ? "Loading..." : "Register" }}
     </button>
     <div class="w-full flex items-center justify-center gap-2">
       <span class="text-blue-900">Already have an account?</span>

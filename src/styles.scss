@@ -5,6 +5,12 @@
 @tailwind utilities;
 @import "ngx-toastr/toastr";
 
+// Define your colors
+// Define shiny, vibrant colors
+$electric-purple: #a044ff; // Shiny electric purple
+$bright-pink: #ff3cac; // Bright pink with a neon feel
+$golden-yellow: #fddb92; // Vibrant golden yellow
+
 // clean up the default margin and padding
 * {
   margin: 0;
@@ -32,4 +38,48 @@ body {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+}
+
+// Create a mix color class
+.text-mix {
+  // Gradient text effect with vibrant colors
+  background: linear-gradient(
+    90deg,
+    $electric-purple,
+    $bright-pink,
+    $golden-yellow
+  );
+  -webkit-background-clip: text; // For Safari
+  -webkit-text-fill-color: transparent; // Make text transparent
+  background-clip: text; // Clip the background to the text
+}
+
+// Solid color mix with a vibrant blend
+.text-mix-solid {
+  color: mix(
+    $electric-purple,
+    $bright-pink,
+    50%
+  ); // Mix electric purple and bright pink equally
+}
+
+.custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+
+  &:hover {
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: gray;
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+  }
 }
